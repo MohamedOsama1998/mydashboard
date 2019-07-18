@@ -1,19 +1,37 @@
-import React from "react";
+import React, { Component } from "react";
+import Tasks from "../tasks/Tasks";
+import AddTask from "../tasks/AddTask";
 
-export default function Home() {
-  return (
-    <div>
-      <div className="row">
-        <div className="col-md-4">
-          <h1>Pending tasks</h1>
+class Home extends Component {
+  state = {
+    toggleAddView: false
+  };
+
+  onToggleAddView = () => {
+    this.setState({
+      toggleAddView: !this.state.toggleAddView
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <div className="row">
+          <div className="col-md-10">
+            <h2>Hello USER!</h2>
+          </div>
+          <div className="col-md-2">
+            <button className="btn btn-primary" onClick={this.onToggleAddView}>
+              <i className="fas fa-plus" /> Add task
+            </button>
+          </div>
         </div>
-        <div className="col-md-4">
-          <h1>In progress tasks</h1>
-        </div>
-        <div className="col-md-4">
-          <h1>Completed tasks</h1>
-        </div>
+        <div>{this.state.toggleAddView ? <AddTask /> : null}</div>
+        <hr />
+        <Tasks />
       </div>
-    </div>
-  );
+    );
+  }
 }
+
+export default Home;
