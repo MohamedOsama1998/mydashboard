@@ -26,6 +26,7 @@ export default class Task extends Component {
               onClick={toggleShowDesc}
             >
               <i className="far fa-question-circle" />
+              <i className="fas fa-question-circle" />
             </button>
             <button className="btn btn-outline-dark mb-3 mr-3">
               <i className="fas fa-pencil-alt" />
