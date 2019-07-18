@@ -2,25 +2,11 @@ import React, { Component } from "react";
 
 export default class Task extends Component {
   state = {
-    status: "",
     showDesc: false
   };
 
   render() {
-    const { title, desc, status } = this.props;
-
-    const getStatusClass = status => {
-      switch (status) {
-        case "COMP":
-          return "card-header bg-success";
-        case "INPR":
-          return "card-header bg-primary";
-        case "BEND":
-          return "card-header bg-dark";
-        default:
-          return "";
-      }
-    };
+    const { title, desc } = this.props;
 
     const toggleShowDesc = () => {
       this.setState({
@@ -31,7 +17,7 @@ export default class Task extends Component {
     return (
       <div>
         <div className="card text-center">
-          <div className={getStatusClass(status)} />
+          <div className="card-header bg-success" />
           <div className="card-body">
             <h5 className="card-title">{title}</h5>
             <hr />
@@ -39,7 +25,7 @@ export default class Task extends Component {
               className="btn btn-outline-info mr-3 mb-3"
               onClick={toggleShowDesc}
             >
-              <i class="far fa-question-circle" />
+              <i className="far fa-question-circle" />
             </button>
             <button className="btn btn-outline-danger mb-3">
               <i className="fas fa-times" />

@@ -1,39 +1,58 @@
 import React, { Component } from "react";
-import PendingTask from "./PendingTask";
+import BendingTask from "./BendingTask";
 import CompletedTask from "./CompletedTask";
 import InProgressTask from "./InProgressTask";
+import { connect } from "react-redux";
 
-export default class Tasks extends Component {
+class Tasks extends Component {
   render() {
+    const { tasks } = this.props;
     return (
       <div>
         <div className="row">
           <div className="col-md-4">
             <h3>Pending</h3>
-            <PendingTask
-              title="FUCK ME"
-              status="BEND"
-              desc="This has to be bending"
-            />
+            {tasks &&
+              tasks.map(task => {
+                if (task.status === "BEND") {
+                  return <BendingTask title={task.title} desc={task.desc} />;
+                } else {
+                  return null;
+                }
+              })}
           </div>
           <div className="col-md-4">
             <h3>In progress</h3>
-            <InProgressTask
-              title="FUCK YOU"
-              status="INPR"
-              desc="This has to be In progress"
-            />
+            {tasks &&
+              tasks.map(task => {
+                if (task.status === "INPR") {
+                  return <InProgressTask title={task.title} desc={task.desc} />;
+                } else {
+                  return null;
+                }
+              })}
           </div>
           <div className="col-md-4">
             <h3>Completed</h3>
-            <CompletedTask
-              title="FUCK ALL PEOPLE"
-              status="COMP"
-              desc="This has to be Completed"
-            />
+            {tasks &&
+              tasks.map(task => {
+                if (task.status === "COMP") {
+                  return <CompletedTask title={task.title} desc={task.desc} />;
+                } else {
+                  return null;
+                }
+              })}
           </div>
         </div>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    tasks: state.task.tasks
+  };
+};
+
+export default connect(mapStateToProps)(Tasks);

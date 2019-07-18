@@ -1,6 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import "bootstrap/js/src/collapse.js";
+import SignedOutLinks from "./SignedOutLinks";
 
 export default function Header() {
   return (
@@ -23,25 +24,12 @@ export default function Header() {
           <div className="collapse navbar-collapse" id="navbar">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
-                <Link to="/home" className="nav-link">
+                <NavLink to="/home" className="nav-link">
                   Home
-                </Link>
+                </NavLink>
               </li>
             </ul>
-            <ul className="nav navbar-nav navbar-right">
-              <li className="nav-item">
-                <Link to="/signin" className="nav-link">
-                  <i className="fas fa-user" />
-                  Sign-in
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/signup" className="nav-link">
-                  <i className="fas fa-user-plus" />
-                  Sign-up
-                </Link>
-              </li>
-            </ul>
+            <SignedOutLinks />
           </div>
         </div>
       </nav>
