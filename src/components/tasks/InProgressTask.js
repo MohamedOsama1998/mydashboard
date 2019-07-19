@@ -16,8 +16,12 @@ export default class Task extends Component {
 
     return (
       <div>
-        <div className="card text-center">
-          <div className="card-header bg-primary" />
+        <div className="card text-center mb-4">
+          <div className="card-header bg-primary">
+            <button className="btn-xs btn-danger float-left">
+              <i className="fas fa-times" />
+            </button>
+          </div>
           <div className="card-body">
             <h5 className="card-title">{title}</h5>
             <hr />
@@ -28,7 +32,7 @@ export default class Task extends Component {
               className="btn btn-outline-info mr-3 mb-3"
               onClick={toggleShowDesc}
             >
-              <i className="far fa-question-circle" />
+              <i className="fas fa-question-circle" />
             </button>
             <button className="btn btn-outline-dark mr-3 mb-3">
               <i className="fas fa-pencil-alt" />

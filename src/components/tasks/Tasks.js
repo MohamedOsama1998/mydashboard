@@ -1,12 +1,14 @@
-import React, { Component } from "react";
-import BendingTask from "./BendingTask";
+import React from "react";
+import BendingTask from "./PendingTask";
 import CompletedTask from "./CompletedTask";
 import InProgressTask from "./InProgressTask";
 import { connect } from "react-redux";
+import { firestoreConnect } from "react-redux-firebase";
+import { compose } from "redux";
+import Spinner from "../layout/Spinner";
 
-class Tasks extends Component {
-  render() {
-    const { tasks } = this.props;
+const Tasks = ({ tasks }) => {
+  if (tasks) {
     return (
       <div>
         <div className="row">
@@ -15,7 +17,13 @@ class Tasks extends Component {
             {tasks &&
               tasks.map(task => {
                 if (task.status === "BEND") {
-                  return <BendingTask title={task.title} desc={task.desc} />;
+                  return (
+                    <BendingTask
+                      key={task.id}
+                      title={task.title}
+                      desc={task.desc}
+                    />
+                  );
                 } else {
                   return null;
                 }
@@ -26,7 +34,13 @@ class Tasks extends Component {
             {tasks &&
               tasks.map(task => {
                 if (task.status === "INPR") {
-                  return <InProgressTask title={task.title} desc={task.desc} />;
+                  return (
+                    <InProgressTask
+                      key={task.id}
+                      title={task.title}
+                      desc={task.desc}
+                    />
+                  );
                 } else {
                   return null;
                 }
@@ -37,7 +51,13 @@ class Tasks extends Component {
             {tasks &&
               tasks.map(task => {
                 if (task.status === "COMP") {
-                  return <CompletedTask title={task.title} desc={task.desc} />;
+                  return (
+                    <CompletedTask
+                      key={task.id}
+                      title={task.title}
+                      desc={task.desc}
+                    />
+                  );
                 } else {
                   return null;
                 }
@@ -46,13 +66,22 @@ class Tasks extends Component {
         </div>
       </div>
     );
+  } else {
+    return <Spinner />;
   }
-}
+};
 
 const mapStateToProps = state => {
   return {
-    tasks: state.task.tasks
+    tasks: state.firestore.ordered.tasks
   };
 };
 
-export default connect(mapStateToProps)(Tasks);
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([
+    {
+      collection: "tasks"
+    }
+  ])
+)(Tasks);

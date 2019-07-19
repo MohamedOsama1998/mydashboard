@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import TextInputGroup from "../layout/TextInput";
+import { createTask } from "../../store/actions/taskActions";
+import { connect } from "react-redux";
 
 class AddContact extends Component {
   state = {
@@ -26,7 +28,14 @@ class AddContact extends Component {
         errors: errorsCopy
       });
     } else {
-      // ADD TASK
+      const newTask = {
+        title: this.state.title,
+        desc: this.state.desc,
+        date: new Date(),
+        status: "BEND"
+      };
+      this.props.createTask(newTask);
+      this.props.history.push("/home");
     }
   };
 
@@ -70,4 +79,13 @@ class AddContact extends Component {
   }
 }
 
-export default AddContact;
+const mapDispatchToProps = dispatch => {
+  return {
+    createTask: task => dispatch(createTask(task))
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(AddContact);

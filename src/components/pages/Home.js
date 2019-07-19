@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Tasks from "../tasks/Tasks";
 import AddTask from "../tasks/AddTask";
+import { Link } from "react-router-dom";
 
 class Home extends Component {
   state = {
@@ -21,9 +22,9 @@ class Home extends Component {
             <h2>Hello USER!</h2>
           </div>
           <div className="col-md-2">
-            <button className="btn btn-primary" onClick={this.onToggleAddView}>
+            <Link className="btn btn-primary" to="/add/task">
               <i className="fas fa-plus" /> Add task
-            </button>
+            </Link>
           </div>
         </div>
         <div>{this.state.toggleAddView ? <AddTask /> : null}</div>
