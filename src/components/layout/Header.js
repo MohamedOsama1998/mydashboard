@@ -2,8 +2,11 @@ import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import "bootstrap/js/src/collapse.js";
 import SignedOutLinks from "./SignedOutLinks";
+import SignedInLinks from "./SignedInLinks";
+import { connect } from "react-redux";
 
-export default function Header() {
+const Header = ({ auth }) => {
+  const links = auth.uid ? <SignedInLinks /> : <SignedOutLinks />;
   return (
     <div>
       <nav className="navbar navbar-expand-md navbar-dark mb-3 py-0 bg-dark">
@@ -22,17 +25,25 @@ export default function Header() {
             <span className="navbar-toggler-icon" />
           </button>
           <div className="collapse navbar-collapse" id="navbar">
-            <ul className="navbar-nav mr-auto">
+            <ul className="navbar-nav mr-auto navbar-left">
               <li className="nav-item">
                 <NavLink to="/home" className="nav-link">
                   Home
                 </NavLink>
               </li>
             </ul>
-            <SignedOutLinks />
+            {links}
           </div>
         </div>
       </nav>
     </div>
   );
-}
+};
+
+const mapStateToProps = state => {
+  return {
+    auth: state.firebase.auth
+  };
+};
+
+export default connect(mapStateToProps)(Header);

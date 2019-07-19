@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import TextInput from "../layout/TextInput";
+import { connect } from "react-redux";
+import { signIn } from "../../store/actions/authActions";
+import { Redirect } from "react-router-dom";
 
-export default class Login extends Component {
+class SignIn extends Component {
   state = {
     email: "",
     password: "",
@@ -35,12 +38,18 @@ export default class Login extends Component {
         errors: errorsCopy
       });
     } else {
-      // LOG IN
+      const userInfo = {
+        email: this.state.email,
+        password: this.state.password
+      };
+      this.props.signIn(userInfo);
     }
   };
 
   render() {
+    if (this.props.auth.uid) return <Redirect to="/home" />;
     const { email, password, errors } = this.state;
+    const { authErr } = this.props;
     return (
       <div className="row">
         <div className="col-md-6 mx-auto">
@@ -50,6 +59,9 @@ export default class Login extends Component {
                 <i className="fas fa-lock" /> Sign in
               </h1>
               <form onSubmit={this.onSubmit}>
+                {authErr ? (
+                  <p className="alert alert-danger">{authErr}</p>
+                ) : null}
                 <div className="form-group">
                   <TextInput
                     label="Email"
@@ -94,3 +106,21 @@ export default class Login extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    authErr: state.auth.authErr,
+    auth: state.firebase.auth
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    signIn: crednts => dispatch(signIn(crednts))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignIn);

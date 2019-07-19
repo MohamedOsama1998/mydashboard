@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import TextInput from "../layout/TextInput";
+import { connect } from "react-redux";
+import { signUp } from "../../store/actions/authActions";
+import { Redirect } from "react-router-dom";
 
-export default class Login extends Component {
+class SignUp extends Component {
   state = {
     firstName: "",
     lastName: "",
@@ -76,11 +79,19 @@ export default class Login extends Component {
         errors: errorsCopy
       });
     } else {
-      // REGISTER ACCOUNT
+      const newUser = {
+        firstName,
+        lastName,
+        email,
+        password
+      };
+
+      this.props.signUp(newUser);
     }
   };
 
   render() {
+    if (this.props.auth.uid) return <Redirect to="/home" />;
     const {
       email,
       password,
@@ -179,3 +190,20 @@ export default class Login extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    auth: state.firebase.auth
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    signUp: newUser => dispatch(signUp(newUser))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignUp);

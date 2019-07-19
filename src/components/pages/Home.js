@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Tasks from "../tasks/Tasks";
 import AddTask from "../tasks/AddTask";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
 class Home extends Component {
   state = {
@@ -15,6 +16,7 @@ class Home extends Component {
   };
 
   render() {
+    if (!this.props.auth.uid) return <Redirect to="/" />;
     return (
       <div>
         <div className="row">
@@ -35,4 +37,10 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = state => {
+  return {
+    auth: state.firebase.auth
+  };
+};
+
+export default connect(mapStateToProps)(Home);
