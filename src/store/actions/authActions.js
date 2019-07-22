@@ -46,7 +46,7 @@ export const signUp = newUser => {
           .doc(res.user.uid)
           .set({
             firstName: newUser.firstName,
-            lsatName: newUser.lastName,
+            lastName: newUser.lastName,
             initials:
               newUser.firstName[0].toUpperCase() +
               newUser.lastName[0].toUpperCase(),

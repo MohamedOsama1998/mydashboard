@@ -9,7 +9,13 @@ class PendingTask extends Component {
   };
 
   render() {
-    const { title, desc, date } = this.props.task;
+    const {
+      title,
+      desc,
+      date,
+      authorFirstName,
+      authorLastName
+    } = this.props.task;
 
     const toggleShowDesc = () => {
       this.setState({
@@ -20,9 +26,7 @@ class PendingTask extends Component {
     return (
       <div>
         <div className="card text-center mb-4">
-          <div className="card-header bg-secondary">
-            added : {moment(date.toDate()).fromNow()}
-          </div>
+          <div className="card-header bg-secondary" />
           <div className="card-body">
             <h5 className="card-title">{title}</h5>
             <hr />
@@ -45,8 +49,13 @@ class PendingTask extends Component {
             </button>
           </div>
           {this.state.showDesc ? (
-            <div className="card-footer text-muted">{desc}</div>
+            <div className="card-text mb-3">{desc}</div>
           ) : null}
+          <div className="card-footer text-muted">
+            added by {authorFirstName + " " + authorLastName}
+            <br />
+            {moment(date.toDate()).fromNow()}
+          </div>
         </div>
       </div>
     );

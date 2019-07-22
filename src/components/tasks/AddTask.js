@@ -15,6 +15,7 @@ class AddContact extends Component {
     e.preventDefault();
 
     const { title, desc, phone, errors } = this.state;
+    const { profile } = this.props;
 
     // Check For Errors
     if (title === "" || desc === "" || phone === "") {
@@ -31,6 +32,8 @@ class AddContact extends Component {
     } else {
       const newTask = {
         title,
+        authorFirstName: profile.firstName,
+        authorLastName: profile.lastName,
         desc,
         date: new Date(),
         status: 0,
@@ -91,7 +94,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    userID: state.firebase.auth.uid
+    userID: state.firebase.auth.uid,
+    profile: state.firebase.profile
   };
 };
 

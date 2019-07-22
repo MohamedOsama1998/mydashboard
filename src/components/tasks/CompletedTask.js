@@ -9,7 +9,14 @@ class CompletedTask extends Component {
   };
 
   render() {
-    const { title, desc, date, id } = this.props.task;
+    const {
+      title,
+      desc,
+      date,
+      id,
+      authorFirstName,
+      authorLastName
+    } = this.props.task;
 
     const toggleShowDesc = () => {
       this.setState({
@@ -24,7 +31,6 @@ class CompletedTask extends Component {
             {/* <button className="btn-xs btn-danger float-left btn-circle">
               <i className="fas fa-times" />
             </button> */}
-            added {moment(date.toDate()).fromNow()}
           </div>
           <div className="card-body">
             <h5 className="card-title">{title}</h5>
@@ -49,8 +55,13 @@ class CompletedTask extends Component {
             </button>
           </div>
           {this.state.showDesc ? (
-            <div className="card-footer text-muted">{desc}</div>
+            <div className="card-text mb-3">{desc}</div>
           ) : null}
+          <div className="card-footer text-muted">
+            added by {authorFirstName + " " + authorLastName}
+            <br />
+            {moment(date.toDate()).fromNow()}{" "}
+          </div>
         </div>
       </div>
     );
