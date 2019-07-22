@@ -1,12 +1,15 @@
 import React, { Component } from "react";
+import moment from "moment";
+import { connect } from "react-redux";
+import { incTaskStatus, decTaskStatus } from "../../store/actions/taskActions";
 
-export default class Task extends Component {
+class InProgressTask extends Component {
   state = {
     showDesc: false
   };
 
   render() {
-    const { title, desc } = this.props;
+    const { title, desc, date } = this.props.task;
 
     const toggleShowDesc = () => {
       this.setState({
@@ -18,26 +21,34 @@ export default class Task extends Component {
       <div>
         <div className="card text-center mb-4">
           <div className="card-header bg-primary">
-            <button className="btn-xs btn-danger float-left">
-              <i className="fas fa-times" />
-            </button>
+            added {moment(date.toDate()).fromNow()}
           </div>
           <div className="card-body">
             <h5 className="card-title">{title}</h5>
             <hr />
-            <button className="btn btn-outline-primary mr-3 mb-3">
-              <i className="fas fa-arrow-circle-left" />
+            <button
+              className="btn btn-outline-primary mr-3 mb-3"
+              onClick={() => {
+                this.props.undoTask(this.props.task);
+              }}
+            >
+              <i className="fas fa-arrow-left" />
             </button>
             <button
               className="btn btn-outline-info mr-3 mb-3"
               onClick={toggleShowDesc}
             >
-              <i className="fas fa-question-circle" />
+              <i className="fas fa-question" />
             </button>
             <button className="btn btn-outline-dark mr-3 mb-3">
               <i className="fas fa-pencil-alt" />
             </button>
-            <button className="btn btn-outline-success mr-3 mb-3">
+            <button
+              className="btn btn-outline-success mr-3 mb-3"
+              onClick={() => {
+                this.props.completeTask(this.props.task);
+              }}
+            >
               <i className="fas fa-check" />
             </button>
           </div>
@@ -49,3 +60,15 @@ export default class Task extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    completeTask: task => dispatch(incTaskStatus(task)),
+    undoTask: task => dispatch(decTaskStatus(task))
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(InProgressTask);

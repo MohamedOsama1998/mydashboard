@@ -12,10 +12,18 @@ const SignedInLinks = props => {
             <i className="fas fa-sign-out-alt" /> Sign out
           </Link>
         </li>
-        <li className="nav-item">
+        <li
+          className="nav-item bg-danger ml-3"
+          style={{
+            width: "40px",
+            height: "40px",
+            borderRadius: "20px",
+            fontSize: "1rem",
+            textAlign: "center"
+          }}
+        >
           <NavLink to="/" className="nav-link">
-            <i className="fas fa-user" />
-            Profile
+            {props.userInitials}
           </NavLink>
         </li>
       </ul>
@@ -29,7 +37,13 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+const mapStateTpPRops = state => {
+  return {
+    userInitials: state.firebase.profile.initials
+  };
+};
+
 export default connect(
-  null,
+  mapStateTpPRops,
   mapDispatchToProps
 )(SignedInLinks);

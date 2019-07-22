@@ -3,7 +3,6 @@ import TextInput from "../layout/TextInput";
 import { connect } from "react-redux";
 import { signUp } from "../../store/actions/authActions";
 import { Redirect } from "react-router-dom";
-
 class SignUp extends Component {
   state = {
     firstName: "",
@@ -80,17 +79,22 @@ class SignUp extends Component {
       });
     } else {
       const newUser = {
-        firstName,
-        lastName,
+        firstName:
+          firstName.charAt(0).toUpperCase() + firstName.slice(1).toLowerCase(),
+        lastName:
+          lastName.charAt(0).toUpperCase() + lastName.slice(1).toLowerCase(),
         email,
         password
       };
 
       this.props.signUp(newUser);
+      this.props.toggleLoading();
     }
   };
 
   render() {
+    const { authErr, isLoading } = this.props;
+
     if (this.props.auth.uid) return <Redirect to="/home" />;
     const {
       email,
@@ -110,6 +114,9 @@ class SignUp extends Component {
                 <i className="fas fa-lock" /> Sign Up
               </h1>
               <form onSubmit={this.onSubmit}>
+                {authErr ? (
+                  <p className="alert alert-danger">{authErr}</p>
+                ) : null}
                 <div className="form-group">
                   <TextInput
                     label="First name"
@@ -177,9 +184,16 @@ class SignUp extends Component {
                   />
                 </div>
                 <div className="form-group">
-                  <button type="submit" className="btn btn-dark btn-block">
-                    {" "}
-                    Sign up{" "}
+                  <button
+                    type="submit"
+                    className="btn btn-dark btn-block"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <i className="fa fa-spinner fa-spin" />
+                    ) : (
+                      "Sign up"
+                    )}
                   </button>
                 </div>
               </form>
@@ -193,13 +207,16 @@ class SignUp extends Component {
 
 const mapStateToProps = state => {
   return {
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    authErr: state.auth.signUpErr,
+    isLoading: state.auth.buttonLoading
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    signUp: newUser => dispatch(signUp(newUser))
+    signUp: newUser => dispatch(signUp(newUser)),
+    toggleLoading: () => dispatch({ type: "TOGGLE_LOADING" })
   };
 };
 

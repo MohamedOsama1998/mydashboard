@@ -1,8 +1,8 @@
 import React from "react";
-import "./App.css";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
 import Header from "./components/layout/Header";
 import Home from "./components/pages/Home";

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import Tasks from "../tasks/Tasks";
 import AddTask from "../tasks/AddTask";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import NoPermission from "./NoPermission";
 
 class Home extends Component {
   state = {
@@ -16,12 +17,12 @@ class Home extends Component {
   };
 
   render() {
-    if (!this.props.auth.uid) return <Redirect to="/" />;
+    if (!this.props.auth.uid) return <NoPermission />;
     return (
       <div>
         <div className="row">
           <div className="col-md-10">
-            <h2>Hello USER!</h2>
+            <h2>Welcome back {this.props.firstName}!</h2>
           </div>
           <div className="col-md-2">
             <Link className="btn btn-primary" to="/add/task">
@@ -39,7 +40,8 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    firstName: state.firebase.profile.firstName
   };
 };
 

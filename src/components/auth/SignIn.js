@@ -3,7 +3,6 @@ import TextInput from "../layout/TextInput";
 import { connect } from "react-redux";
 import { signIn } from "../../store/actions/authActions";
 import { Redirect } from "react-router-dom";
-
 class SignIn extends Component {
   state = {
     email: "",
@@ -43,13 +42,14 @@ class SignIn extends Component {
         password: this.state.password
       };
       this.props.signIn(userInfo);
+      this.props.toggleLoding();
     }
   };
 
   render() {
     if (this.props.auth.uid) return <Redirect to="/home" />;
     const { email, password, errors } = this.state;
-    const { authErr } = this.props;
+    const { authErr, isLoading } = this.props;
     return (
       <div className="row">
         <div className="col-md-6 mx-auto">
@@ -85,17 +85,16 @@ class SignIn extends Component {
                   />
                 </div>
                 <div className="form-group">
-                  <div className="checkbox">
-                    <label>
-                      {" "}
-                      <input type="checkbox" /> Save password{" "}
-                    </label>
-                  </div>
-                </div>
-                <div className="form-group">
-                  <button type="submit" className="btn btn-dark btn-block">
-                    {" "}
-                    Login{" "}
+                  <button
+                    type="submit"
+                    className="btn btn-dark btn-block"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <i className="fa fa-spinner fa-spin" />
+                    ) : (
+                      "Sign in"
+                    )}
                   </button>
                 </div>
               </form>
@@ -109,14 +108,16 @@ class SignIn extends Component {
 
 const mapStateToProps = state => {
   return {
-    authErr: state.auth.authErr,
-    auth: state.firebase.auth
+    authErr: state.auth.signInErr,
+    auth: state.firebase.auth,
+    isLoading: state.auth.buttonLoading
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    signIn: crednts => dispatch(signIn(crednts))
+    signIn: crednts => dispatch(signIn(crednts)),
+    toggleLoding: () => dispatch({ type: "TOGGLE_LOADING" })
   };
 };
 

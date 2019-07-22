@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import TextInputGroup from "../layout/TextInput";
 import { createTask } from "../../store/actions/taskActions";
 import { connect } from "react-redux";
+import NoPermission from "../pages/NoPermission";
 
 class AddContact extends Component {
   state = {
@@ -29,10 +30,11 @@ class AddContact extends Component {
       });
     } else {
       const newTask = {
-        title: this.state.title,
-        desc: this.state.desc,
+        title,
+        desc,
         date: new Date(),
-        status: "BEND"
+        status: 0,
+        userID: this.props.userID
       };
       this.props.createTask(newTask);
       this.props.history.push("/home");
@@ -42,6 +44,8 @@ class AddContact extends Component {
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
+    if (!this.props.userID) return <NoPermission />;
+
     const { title, desc, errors } = this.state;
 
     return (
@@ -85,7 +89,13 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+const mapStateToProps = state => {
+  return {
+    userID: state.firebase.auth.uid
+  };
+};
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(AddContact);

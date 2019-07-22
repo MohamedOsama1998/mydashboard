@@ -9,7 +9,7 @@ const Header = ({ auth }) => {
   const links = auth.uid ? <SignedInLinks /> : <SignedOutLinks />;
   return (
     <div>
-      <nav className="navbar navbar-expand-md navbar-dark mb-3 py-0 bg-dark">
+      <nav className="navbar navbar-expand-md navbar-dark mb-3 py-0 bg-dark p-2">
         <div className="container">
           <Link to="/" className="navbar-brand">
             MyDashboard
@@ -27,9 +27,11 @@ const Header = ({ auth }) => {
           <div className="collapse navbar-collapse" id="navbar">
             <ul className="navbar-nav mr-auto navbar-left">
               <li className="nav-item">
-                <NavLink to="/home" className="nav-link">
-                  Home
-                </NavLink>
+                {auth.uid ? (
+                  <NavLink to="/home" className="nav-link">
+                    Home
+                  </NavLink>
+                ) : null}
               </li>
             </ul>
             {links}

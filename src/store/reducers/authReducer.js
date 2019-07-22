@@ -1,30 +1,41 @@
 const initState = {
-  authErr: null
+  signInErr: null,
+  signUpErr: null,
+  buttonLoading: false
 };
 
 const authReducer = (state = initState, action) => {
   switch (action.type) {
+    case "TOGGLE_LOADING":
+      return {
+        ...state,
+        buttonLoading: true
+      };
     case "LOGIN_ERR":
       return {
         ...state,
-        authErr: "Email or password is incorrect.."
+        buttonLoading: false,
+        signInErr: action.err.message
       };
     case "LOGIN_SUC":
       return {
         ...state,
-        authErr: null
+        buttonLoading: false,
+        signInErr: null
       };
     case "SIGN_OUT":
       return state;
     case "SIGNUP_SUCCESS":
       return {
         ...state,
-        authErr: null
+        buttonLoading: false,
+        signUpErr: null
       };
     case "SIGNUP_ERROR":
       return {
         ...state,
-        authErr: action.err.message
+        buttonLoading: false,
+        signUpErr: action.err.message
       };
     default:
       return state;

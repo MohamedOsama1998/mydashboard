@@ -1,5 +1,5 @@
 import React from "react";
-import BendingTask from "./PendingTask";
+import PendingTask from "./PendingTask";
 import CompletedTask from "./CompletedTask";
 import InProgressTask from "./InProgressTask";
 import { connect } from "react-redux";
@@ -16,14 +16,8 @@ const Tasks = ({ tasks }) => {
             <h3>Pending</h3>
             {tasks &&
               tasks.map(task => {
-                if (task.status === "BEND") {
-                  return (
-                    <BendingTask
-                      key={task.id}
-                      title={task.title}
-                      desc={task.desc}
-                    />
-                  );
+                if (task.status === 0) {
+                  return <PendingTask task={task} key={task.id} />;
                 } else {
                   return null;
                 }
@@ -33,14 +27,8 @@ const Tasks = ({ tasks }) => {
             <h3>In progress</h3>
             {tasks &&
               tasks.map(task => {
-                if (task.status === "INPR") {
-                  return (
-                    <InProgressTask
-                      key={task.id}
-                      title={task.title}
-                      desc={task.desc}
-                    />
-                  );
+                if (task.status === 1) {
+                  return <InProgressTask task={task} key={task.id} />;
                 } else {
                   return null;
                 }
@@ -50,14 +38,8 @@ const Tasks = ({ tasks }) => {
             <h3>Completed</h3>
             {tasks &&
               tasks.map(task => {
-                if (task.status === "COMP") {
-                  return (
-                    <CompletedTask
-                      key={task.id}
-                      title={task.title}
-                      desc={task.desc}
-                    />
-                  );
+                if (task.status === 2) {
+                  return <CompletedTask task={task} key={task.id} />;
                 } else {
                   return null;
                 }

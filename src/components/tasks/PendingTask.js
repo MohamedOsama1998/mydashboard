@@ -1,12 +1,15 @@
 import React, { Component } from "react";
+import moment from "moment";
+import { incTaskStatus } from "../../store/actions/taskActions";
+import { connect } from "react-redux";
 
-export default class Task extends Component {
+class PendingTask extends Component {
   state = {
     showDesc: false
   };
 
   render() {
-    const { title, desc } = this.props;
+    const { title, desc, date } = this.props.task;
 
     const toggleShowDesc = () => {
       this.setState({
@@ -18,9 +21,7 @@ export default class Task extends Component {
       <div>
         <div className="card text-center mb-4">
           <div className="card-header bg-secondary">
-            <button className="btn-xs btn-danger float-left">
-              <i className="fas fa-times" />
-            </button>
+            added : {moment(date.toDate()).fromNow()}
           </div>
           <div className="card-body">
             <h5 className="card-title">{title}</h5>
@@ -29,13 +30,18 @@ export default class Task extends Component {
               className="btn btn-outline-info mr-3 mb-3"
               onClick={toggleShowDesc}
             >
-              <i className="fas fa-question-circle" />
+              <i className="fas fa-question" />
             </button>
             <button className="btn btn-outline-dark mb-3 mr-3">
               <i className="fas fa-pencil-alt" />
             </button>
-            <button className="btn btn-outline-primary mb-3">
-              <i className="fas fa-arrow-circle-right" />
+            <button
+              className="btn btn-outline-primary mb-3"
+              onClick={() => {
+                this.props.startTask(this.props.task);
+              }}
+            >
+              <i className="fas fa-arrow-right" />
             </button>
           </div>
           {this.state.showDesc ? (
@@ -46,3 +52,14 @@ export default class Task extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    startTask: task => dispatch(incTaskStatus(task))
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(PendingTask);
