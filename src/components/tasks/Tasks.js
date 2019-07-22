@@ -63,7 +63,8 @@ export default compose(
   connect(mapStateToProps),
   firestoreConnect([
     {
-      collection: "tasks"
+      collection: "tasks",
+      orderBy: ["date", "desc"]
     }
   ])
 )(Tasks);
