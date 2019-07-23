@@ -45,7 +45,7 @@ class CompletedTask extends Component {
               className="btn btn-outline-info mr-3 mb-3"
               onClick={toggleShowDesc}
             >
-              <i className="fas fa-question-circle" />
+              <i className="fas fa-question" />
             </button>
             <button
               className="btn btn-outline-danger mb-3"
