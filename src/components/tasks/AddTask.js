@@ -37,7 +37,7 @@ class AddContact extends Component {
         desc,
         date: new Date(),
         status: 0,
-        userID: this.props.userID
+        userID: this.props.auth.uid
       };
       this.props.createTask(newTask);
       this.props.history.push("/home");
