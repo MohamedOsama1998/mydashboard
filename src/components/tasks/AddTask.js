@@ -53,34 +53,40 @@ class AddContact extends Component {
     const { title, desc, errors } = this.state;
 
     return (
-      <div className="card mb-3">
-        <div className="card-header">Add Task</div>
-        <div className="card-body">
-          <form onSubmit={this.onSubmit}>
-            <TextInputGroup
-              label="Title"
-              name="title"
-              type="text"
-              placeholder="Enter title"
-              value={title}
-              onChange={this.onChange}
-              error={errors.title}
-            />
-            <TextInputGroup
-              label="Description"
-              name="desc"
-              type="text"
-              placeholder="...."
-              value={desc}
-              onChange={this.onChange}
-              error={errors.desc}
-            />
-            <input
-              type="submit"
-              value="Add Task"
-              className="btn btn-light btn-block"
-            />
-          </form>
+      <div className="row">
+        <div className="col-md-6 mx-auto">
+          <div className="card mb-3">
+            <div className="card-header text-center">
+              <h4>Add Task</h4>
+            </div>
+            <div className="card-body">
+              <form onSubmit={this.onSubmit}>
+                <TextInputGroup
+                  label="Title"
+                  name="title"
+                  type="text"
+                  placeholder="Enter title"
+                  value={title}
+                  onChange={this.onChange}
+                  error={errors.title}
+                />
+                <TextInputGroup
+                  label="Description"
+                  name="desc"
+                  type="text"
+                  placeholder="...."
+                  value={desc}
+                  onChange={this.onChange}
+                  error={errors.desc}
+                />
+                <input
+                  type="submit"
+                  value="Add Task"
+                  className="btn btn-dark btn-block"
+                />
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     );

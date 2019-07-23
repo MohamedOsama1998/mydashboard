@@ -20,20 +20,25 @@ class Verifciation extends Component {
     );
   };
 
+  onCancel = () => {
+    this.props.signOut();
+    this.props.history.push("/");
+  };
+
   render() {
     if (this.props.auth.emailVerified || !this.props.auth.uid) {
       return <NoPermission />;
     }
     return (
       <div className="row">
-        <div className="col-md-6 mx-auto">
+        <div className="col-md-4 mx-auto">
           <div className="card">
             <div className="card-body">
               <div className="card-text mb-3">
                 <p>Please verify your ownership of {this.props.auth.email}.</p>
               </div>
               <button
-                className="btn btn-primary btn-block"
+                className="btn btn-dark btn-block"
                 disabled={this.state.toggleVerifyButton}
                 onClick={this.onVerify}
               >
@@ -44,8 +49,8 @@ class Verifciation extends Component {
                 )}
               </button>
               <button
-                className="btn btn-primary btn-block"
-                onClick={this.props.signOut}
+                className="btn btn-dark btn-block"
+                onClick={this.onCancel}
               >
                 cancel
               </button>
