@@ -6,7 +6,7 @@ export const createTask = task => {
       .add(task)
       .then(() => {
         dispatch({
-          type: "ADD_TASK",
+          type: "ADD_TASK_SUC",
           task
         });
       })
@@ -31,7 +31,7 @@ export const incTaskStatus = task => {
       })
       .then(() => {
         dispatch({
-          type: "INC_STATUS"
+          type: "INC_STATUS_SUC"
         });
       })
       .catch(err => {
@@ -52,11 +52,11 @@ export const decTaskStatus = task => {
       })
       .then(() => {
         dispatch({
-          type: "DECR_STATUS"
+          type: "DEC_STATUS_SUC"
         });
       })
       .catch(err => {
-        dispatch({ type: "DECR_STATUSK_ERR", err });
+        dispatch({ type: "DEC_STATUSK_ERR", err });
       });
   };
 };
@@ -75,5 +75,23 @@ export const deleteTask = id => {
       .catch(err => {
         dispatch({ type: "DEL_TASK_ERR", err });
       });
+  };
+};
+
+export const editTask = task => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+
+    firestore
+      .collection("tasks")
+      .doc(task.id)
+      .update({
+        title: task.title,
+        desc: task.desc
+      })
+      .then(() => {
+        dispatch({ type: "TASK_EDIT_SUC" });
+      })
+      .catch(err => dispatch({ type: "TASK_EDIT_ERR", err }));
   };
 };
