@@ -47,7 +47,8 @@ class AddContact extends Component {
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
-    if (!this.props.userID) return <NoPermission />;
+    if (!this.props.auth.uid || !this.props.auth.emailVerified)
+      return <NoPermission />;
 
     const { title, desc, errors } = this.state;
 
@@ -94,7 +95,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    userID: state.firebase.auth.uid,
+    auth: state.firebase.auth,
     profile: state.firebase.profile
   };
 };

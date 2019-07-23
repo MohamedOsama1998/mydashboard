@@ -61,3 +61,19 @@ export const signUp = newUser => {
       });
   };
 };
+
+export const verifyEmail = user => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firebase = getFirebase();
+
+    firebase
+      .auth()
+      .currentUser.sendEmailVerification()
+      .then(() => {
+        dispatch({ type: "VERI_EMAIL_SUC" });
+      })
+      .catch(err => {
+        dispatch({ type: "VERI_EMAIL_ERR", err });
+      });
+  };
+};
