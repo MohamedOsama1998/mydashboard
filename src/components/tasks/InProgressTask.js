@@ -28,6 +28,7 @@ class InProgressTask extends Component {
       title,
       desc,
       date,
+      state,
       id,
       authorFirstName,
       authorLastName
@@ -82,7 +83,7 @@ class InProgressTask extends Component {
                 <div className="card-text mb-3">{desc}</div>
               ) : null}
               <div className="card-footer text-muted">
-                added by {authorFirstName + " " + authorLastName}
+                {state} by {authorFirstName + " " + authorLastName}
                 <br />
                 {moment(date.toDate()).fromNow()}{" "}
               </div>

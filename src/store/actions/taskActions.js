@@ -87,7 +87,9 @@ export const editTask = task => {
       .doc(task.id)
       .update({
         title: task.title,
-        desc: task.desc
+        desc: task.desc,
+        state: "Edited",
+        date: task.date
       })
       .then(() => {
         dispatch({ type: "TASK_EDIT_SUC" });

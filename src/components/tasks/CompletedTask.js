@@ -11,6 +11,7 @@ class CompletedTask extends Component {
   render() {
     const {
       title,
+      state,
       desc,
       date,
       id,
@@ -58,7 +59,7 @@ class CompletedTask extends Component {
             <div className="card-text mb-3">{desc}</div>
           ) : null}
           <div className="card-footer text-muted">
-            added by {authorFirstName + " " + authorLastName}
+            {state} by {authorFirstName + " " + authorLastName}
             <br />
             {moment(date.toDate()).fromNow()}{" "}
           </div>

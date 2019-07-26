@@ -44,7 +44,6 @@ class AddTask extends Component {
         userID: this.props.auth.uid
       };
       this.props.createTask(newTask);
-      this.toggleModal();
     }
   };
 
@@ -52,9 +51,6 @@ class AddTask extends Component {
 
   toggleModal = () => {
     this.setState({
-      title: "",
-      desc: "",
-      errors: {},
       isOpen: !this.state.isOpen
     });
   };
@@ -66,12 +62,7 @@ class AddTask extends Component {
     const { title, desc, errors } = this.state;
     return (
       <div>
-        <Button
-          variant="primary"
-          onClick={() => {
-            this.toggleModal();
-          }}
-        >
+        <Button variant="primary" onClick={this.toggleModal}>
           <i className="fas fa-plus" /> New task
         </Button>
 
@@ -83,9 +74,8 @@ class AddTask extends Component {
           <Modal.Header closeButton>
             <Modal.Title>New task</Modal.Title>
           </Modal.Header>
-
           <Modal.Body>
-            <form>
+            <form onSubmit={this.onSubmit}>
               <div className="form-group">
                 <TextInput
                   label="Title"
@@ -111,12 +101,11 @@ class AddTask extends Component {
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <button className="btn btn-secondary" onClick={this.toggleModal}>
-              Close
-            </button>
-            <button className="btn btn-primary" onClick={this.onSubmit}>
-              Add task
-            </button>
+            <input
+              type="submit"
+              value="Add Task"
+              className="btn btn-dark btn-block"
+            />
           </Modal.Footer>
         </Modal>
       </div>

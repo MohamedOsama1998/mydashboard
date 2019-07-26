@@ -25,6 +25,7 @@ class PendingTask extends Component {
   render() {
     const {
       title,
+      state,
       desc,
       id,
       date,
@@ -74,7 +75,7 @@ class PendingTask extends Component {
                 <div className="card-text mb-3">{desc}</div>
               ) : null}
               <div className="card-footer text-muted">
-                added by {authorFirstName + " " + authorLastName}
+                {state} by {authorFirstName + " " + authorLastName}
                 <br />
                 {moment(date.toDate()).fromNow()}{" "}
               </div>

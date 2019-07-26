@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { verifyEmail, signOut } from "../../store/actions/authActions";
 import { connect } from "react-redux";
 import NoPermission from "../pages/NoPermission";
+import Spinner from "react-bootstrap/Spinner";
 
 class Verifciation extends Component {
   state = {
@@ -15,9 +16,6 @@ class Verifciation extends Component {
     });
 
     this.props.verifyEmail();
-    alert(
-      "An email has been sent to the provided email address, Please verify your email and use it to sign in"
-    );
   };
 
   onCancel = () => {
@@ -43,7 +41,13 @@ class Verifciation extends Component {
                 onClick={this.onVerify}
               >
                 {this.state.toggleVerifyButton ? (
-                  <i className="fas fa-spinner fa-spin" />
+                  <Spinner
+                    size="sm"
+                    as="span"
+                    animation="border"
+                    role="status"
+                    aria-hidden="true"
+                  />
                 ) : (
                   "Send verifcation Code"
                 )}

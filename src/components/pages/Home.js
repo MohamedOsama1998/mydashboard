@@ -1,21 +1,11 @@
 import React, { Component } from "react";
 import Tasks from "../tasks/Tasks";
 import AddTask from "../tasks/AddTask";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import NoPermission from "./NoPermission";
 
 class Home extends Component {
-  state = {
-    toggleAddView: false
-  };
-
-  onToggleAddView = () => {
-    this.setState({
-      toggleAddView: !this.state.toggleAddView
-    });
-  };
-
   render() {
     if (!this.props.auth.uid) return <NoPermission />;
     if (!this.props.auth.emailVerified) return <Redirect to="/auth/verify" />;
@@ -26,12 +16,9 @@ class Home extends Component {
             <h2>Welcome back {this.props.firstName}!</h2>
           </div>
           <div className="col-md-2">
-            <Link className="btn btn-primary" to="/add/task">
-              <i className="fas fa-plus" /> Add task
-            </Link>
+            <AddTask />
           </div>
         </div>
-        <div>{this.state.toggleAddView ? <AddTask /> : null}</div>
         <hr />
         <Tasks />
       </div>

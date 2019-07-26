@@ -10,7 +10,7 @@ import Main from "./components/pages/Main";
 import SignUp from "./components/auth/SignUp";
 import SignIn from "./components/auth/SignIn";
 import Verification from "./components/auth/Verifciation";
-import AddTask from "./components/tasks/AddTask";
+import AddTask from "./components/playground/AddTask";
 
 function App() {
   return (
@@ -23,8 +23,8 @@ function App() {
             <Route exact path="/home" component={Home} />
             <Route exact path="/signin" component={SignIn} />
             <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/add/task" component={AddTask} />
             <Route exact path="/auth/verify" component={Verification} />
+            <Route exact path="/aa" component={AddTask} />
           </Switch>
         </div>
       </div>

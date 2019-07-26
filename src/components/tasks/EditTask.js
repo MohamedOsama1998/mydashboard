@@ -10,7 +10,12 @@ class EditTask extends Component {
     id: this.props.id
   };
 
-  onSubmit = (e, task) => {
+  onSubmit = (e, editedTask) => {
+    const task = {
+      ...editedTask,
+      date: new Date(),
+      state: "Edited"
+    };
     if (
       task.title === this.props.taskTitle &&
       task.desc === this.props.taskDesc

@@ -9,7 +9,7 @@ const Header = ({ auth }) => {
   const links = auth.uid ? <SignedInLinks /> : <SignedOutLinks />;
   return (
     <div>
-      <nav className="navbar navbar-expand-md navbar-dark mb-5 py-0 bg-dark p-2">
+      <nav className="navbar navbar-expand-md navbar-dark mb-4 py-0 bg-dark sticky-top">
         <div className="container">
           <Link to="/" className="navbar-brand">
             MyDashboard

@@ -12,7 +12,7 @@ const Tasks = ({ tasks }) => {
     return (
       <div>
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-lg-4">
             <h3>Pending</h3>
             {tasks &&
               tasks.map(task => {
@@ -23,7 +23,7 @@ const Tasks = ({ tasks }) => {
                 }
               })}
           </div>
-          <div className="col-md-4">
+          <div className="col-lg-4">
             <h3>In progress</h3>
             {tasks &&
               tasks.map(task => {
@@ -34,7 +34,7 @@ const Tasks = ({ tasks }) => {
                 }
               })}
           </div>
-          <div className="col-md-4">
+          <div className="col-lg-4">
             <h3>Completed</h3>
             {tasks &&
               tasks.map(task => {

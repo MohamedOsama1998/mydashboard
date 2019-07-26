@@ -3,6 +3,7 @@ import TextInput from "../layout/TextInput";
 import { connect } from "react-redux";
 import { signIn } from "../../store/actions/authActions";
 import { Redirect } from "react-router-dom";
+import Spinner from "react-bootstrap/Spinner";
 class SignIn extends Component {
   state = {
     email: "",
@@ -91,7 +92,7 @@ class SignIn extends Component {
                     disabled={isLoading}
                   >
                     {isLoading ? (
-                      <i className="fa fa-spinner fa-spin" />
+                      <Spinner animation="border" size="sm" />
                     ) : (
                       "Sign in"
                     )}
