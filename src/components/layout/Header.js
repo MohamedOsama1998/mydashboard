@@ -1,8 +1,8 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import "bootstrap/js/src/collapse.js";
-import SignedOutLinks from "./SignedOutLinks";
-import SignedInLinks from "./SignedInLinks";
+import SignedOutLinks from "../links/SignedOutLinks";
+import SignedInLinks from "../links/SignedInLinks";
 import { connect } from "react-redux";
 
 const Header = ({ auth }) => {

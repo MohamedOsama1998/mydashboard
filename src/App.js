@@ -10,13 +10,13 @@ import Main from "./components/pages/Main";
 import SignUp from "./components/auth/SignUp";
 import SignIn from "./components/auth/SignIn";
 import Verification from "./components/auth/Verifciation";
-import AddTask from "./components/playground/AddTask";
+import Playground from "./components/playground/Playground";
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <Header />
+        {/* <Header /> */}
         <div className="container">
           <Switch>
             <Route exact path="/" component={Main} />
@@ -24,7 +24,7 @@ function App() {
             <Route exact path="/signin" component={SignIn} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/auth/verify" component={Verification} />
-            <Route exact path="/aa" component={AddTask} />
+            <Route exact path="/aa" component={Playground} />
           </Switch>
         </div>
       </div>
